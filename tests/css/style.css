@@ -1,0 +1,20 @@
+﻿.preview 
+        {
+
+         font:italic bold 12px Georgia, serif;
+        }
+        .note 
+        {
+
+         font:italic  10px Tahoma, serif;
+        }
+.tablestyle
+        {
+            width: 1000px;
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-right: 1px solid #C0C0C0;
+            border-top-style: solid;
+            border-top-width: 1px;
+            border-bottom: 1px solid #C0C0C0;
+        }
