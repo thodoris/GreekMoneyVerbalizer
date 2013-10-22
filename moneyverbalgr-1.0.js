@@ -127,7 +127,11 @@ function GetGreekVerbal(money, showZero, showCurrency) {
 /* Private Functions*/
 /********************/
 function GetValue(money, index, showCurrency) {
+  
     if (index===2 && money===1)  return "ΧΙΛΙΑ ";
+    
+    // force decimal part to always have at least 2 float points
+    if (index===0 && money < 10) money = money*10;
 
     var str = "";
     var dekmon = money % 100;
