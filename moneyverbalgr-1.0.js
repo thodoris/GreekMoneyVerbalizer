@@ -1,4 +1,4 @@
-﻿/*@thodoris@thodoris.net*/
+/*@thodoris@thodoris.net*/
 
 
 /**
@@ -129,8 +129,7 @@ function GetGreekVerbal(money, showZero, showCurrency) {
 function GetValue(money, index, showCurrency) {
   
     if (index===2 && money===1)  return "ΧΙΛΙΑ ";
-    
-    // force decimal part to always have at least 2 float points
+ 
     if (index===0 && money < 10) money = money*10;
 
     var str = "";
