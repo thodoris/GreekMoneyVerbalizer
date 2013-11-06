@@ -1,4 +1,4 @@
-﻿/*@thodoris@thodoris.net*/
+/*@thodoris@thodoris.net*/
 
 
 /**
@@ -42,17 +42,16 @@ var d = ["", "ΔΕΚΑ", "ΕΙΚΟΣΙ ", "ΤΡΙΑΝΤΑ ", "ΣΑΡΑΝΤΑ ", 
 var e = ["", "ΕΚΑΤΟ", "ΔΙΑΚΟΣΙ", "ΤΡΙΑΚΟΣΙ", "ΤΕΤΡΑΚΟΣΙ", "ΠΕΝΤΑΚΟΣΙ", "ΕΞΑΚΟΣΙ", "ΕΠΤΑΚΟΣΙ", "ΟΚΤΑΚΟΣΙ", "ΕΝΝΙΑΚΟΣΙ"];
 var idx = ["ΛΕΠΤΑ", "ΕΥΡΩ ", "ΧΙΛΙΑΔΕΣ ", "ΕΚΑΤΟΜΜΥΡΙ", "ΔΙΣ", "ΤΡΙΣ", "ΤΕΤΡΑΚΙΣ ", "ΠΕΝΤΑΚΙΣ "];
 
-/* Math Function Ovverides */
-Math._round = Math.round;
-Math.round = function (number, precision) {
-    precision = Math.abs(parseInt(precision)) || 0;
-    var coefficient = Math.pow(10, precision);
-    return Math._round(number * coefficient) / coefficient;
-}
 
 /*******************/
 /* Helpers         */
 /*******************/
+
+function Round(number, precision) {
+    precision = Math.abs(parseInt(precision)) || 0;
+    var coefficient = Math.pow(10, precision);
+    return Math.round(number * coefficient) / coefficient;
+}
 
 function Cast(value) {
   return Number(value);
@@ -76,6 +75,7 @@ function decimalPart(num) {
 
 /* Call this function to take the verbal representation of an amount */
 function GetGreekVerbal(money, showZero, showCurrency) {
+
     var str = "";
     var index = 0;
     var isZero = true;
@@ -103,7 +103,7 @@ function GetGreekVerbal(money, showZero, showCurrency) {
     while (money >= 1) {
         isZero = false;
         var value2 = Cast((Cast(money) % 1000));
-        money = Math.round((money/1000)-0.5);
+        money = Round((money/1000)-0.5);
         index += 1;
         str = GetValue(value2, index, showCurrency) + str;
         money = Cast(money);
@@ -127,16 +127,16 @@ function GetGreekVerbal(money, showZero, showCurrency) {
 /* Private Functions*/
 /********************/
 function GetValue(money, index, showCurrency) {
-
-    
+  
     if (index===2 && money===1)  return "ΧΙΛΙΑ ";
-    
+ 
+    if (index===0 && money < 10) money = money*10;
 
     var str = "";
     var dekmon = money % 100;
     var monades = dekmon % 10;
-    var ekatontades = Math.round((money / 100) - 0.5);
-    var dekades = Math.round((dekmon / 10)- 0.5);
+    var ekatontades = Round((money / 100) - 0.5);
+    var dekades = Round((dekmon / 10)- 0.5);
     if (ekatontades===1) {
         if (dekmon===0) {
             str = e[1] + " ";
@@ -202,4 +202,3 @@ function GetValue(money, index, showCurrency) {
     }
     return str;
 }
-
